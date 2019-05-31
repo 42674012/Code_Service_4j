@@ -1,0 +1,112 @@
+.logo {
+	
+	display: inline-block;
+	width: 100px;
+	height: 58px;
+	line-height: 58px;
+	font-size: 20px;
+	font-family: "ºÚÌå";
+}
+
+.hospital {
+	width: 250px;
+	height: 150px;
+	float: left;
+	text-align: center;
+	line-height: 210px;
+	margin: 30px 30px 30px 30px;
+}
+
+.hospital-beautysalon {
+	background: url('images/beautySalon.png') 95px 30px no-repeat;
+}
+
+.hospital-normal {
+	background: url('images/hospital.png') 95px 30px no-repeat;
+}
+
+.hospital a {
+	text-decoration: none;
+}
+
+.hospital:hover {
+	background-color: #f2f5e9;
+}
+
+.container {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 962px;
+	text-align: left;
+}
+
+.main {
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgb(255, 255, 255);
+	background-image: none;
+	background-origin: padding-box;
+	background-size: auto;
+	border-bottom-color: rgb(219, 223, 214);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-image-outset: 0px;
+	border-image-repeat: stretch;
+	border-image-slice: 100%;
+	border-image-source: none;
+	border-image-width: 1;
+	border-left-color: rgb(219, 223, 214);
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: rgb(219, 223, 214);
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: rgb(219, 223, 214);
+	border-top-style: solid;
+	border-top-width: 1px;
+	box-shadow: rgba(0, 0, 0, 0.14902) 0px 0px 5px 0px;
+	display: block;
+	font-family: 'Helvetica Neue', Helvetica, Arial;
+	font-size: 16px;
+	height: 680px;
+	line-height: 24px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	min-height: 600px;
+	opacity: 1;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	transform: none;
+	transform-origin: 482px 0px;
+	transition-duration: 0.2s;
+	transition-property: top, margin-top, opacity, transform, box-shadow;
+	vertical-align: baseline;
+	width: 100%;
+}
+
+.topMenu {
+	font-size: 18px;
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #ccc;
+	margin-left:20px;
+}
+
+.topMenu.active {
+	color: #28a5e6;
+	font-weight:bold;
+}
+
+.create_link {
+	float: right;
+	margin-right: 15px;
+	margin-top: 5px;
+	cursor: pointer;
+	color: #2894FF;
+	font-weight: bold;
+}

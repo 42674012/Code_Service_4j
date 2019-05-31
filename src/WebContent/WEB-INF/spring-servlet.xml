@@ -1,0 +1,279 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+      
+      http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+      ">
+	<!--Spring3.1 之后的自定义注解 HandlerAdapter -->
+	<context:property-placeholder location="classpath:hibernate.properties" />
+	<!-- 启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
+	<bean id="springcontextutil" class="com.jx.exiaobao.bespeak.bussiness.SpringContextUtil"></bean>
+	
+	<context:component-scan base-package="com.xt" />
+	<context:component-scan base-package="com.jx" />
+	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
+
+	<context:annotation-config />
+
+
+	<!-- 3.1废弃 改为 RequestMappingHandlerAdapter <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"> -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<!--<ref bean="logNDCInteceptor" /> -->
+				<!--<ref bean="myRequestHelperInteceptor" /> --> <!-- RequestHelper拦截器，这是你自定义的拦截器 -->
+				<!--<ref bean="myPermissionsInteceptor" /> -->
+				<!--<ref bean="myUserInfoInteceptor" /> --> <!-- 用户信息拦截器，这是你自定义的拦截器 -->
+			</list>
+		</property>
+	</bean>
+	<!-- 3.1废弃 改为 RequestMappingHandlerAdapter <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+
+		<property name="messageConverters">
+			<list>
+				<ref bean="byteArray_hmc" />
+				<ref bean="string_hmc" />
+				<ref bean="resource_hmc" />
+				<ref bean="source_hmc" />
+				<ref bean="xmlAwareForm_hmc" />
+				<ref bean="jaxb2RootElement_hmc" />
+				<ref bean="jackson_hmc" />
+
+			</list>
+		</property>
+		<property name="webBindingInitializer" ref="webBindingInitializer" />
+
+	</bean>
+	<bean id="byteArray_hmc"
+		class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+	<bean id="string_hmc"
+		class="org.springframework.http.converter.StringHttpMessageConverter" />
+	<bean id="resource_hmc"
+		class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+	<bean id="source_hmc"
+		class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+	<bean id="xmlAwareForm_hmc"
+		class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
+	<bean id="jaxb2RootElement_hmc"
+		class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+	<bean id="jackson_hmc"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+
+
+	<bean id="String2DateConverters" class='com.xt.ssb.spring3converters.String2DateConverters'></bean>
+
+
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<ref bean="String2DateConverters" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="webBindingInitializer"
+		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+
+		<property name="conversionService" ref="conversionService" />
+	</bean>
+
+
+
+
+	<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<property name="viewClass"> <value>org.springframework.web.servlet.view.JstlView</value> 
+		</property> <property name="prefix"> <value>/index/</value> </property> <property 
+		name="suffix"> <value>.jsp</value> </property> </bean> -->
+
+	<bean id="defaultDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${driverClassName}"></property>
+		<property name="jdbcUrl" value="${hibernate.connection.url}" />
+		<property name="user" value="${jdbc_username}" />
+		<property name="password" value="${jdbc_password}" />
+
+	</bean>
+
+	<bean id="dataSourceDynmic" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" scope="prototype">
+
+	</bean>
+
+	<bean id="dynamicdatasource" class="com.xt.ssb.web.utils.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="defaultDataSource" value-ref="defaultDataSource" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="defaultDataSource" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dynamicdatasource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.jdbc.fetch_size">50</prop>
+				<prop key="hibernate.jdbc.batch_size">25</prop>
+				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+				
+				<prop key="hibernate.autoReconnect">${hibernate.autoReconnect}</prop>  
+
+
+				<prop key="c3p0.min_size">${hibernate.c3p0.min_size}</prop>
+				<prop key="c3p0.max_size">${hibernate.c3p0.max_size}</prop>
+				<prop key="c3p0.time_out">1800</prop>
+				<prop key="c3p0.max_statement">50</prop>
+				<prop key="hibernate.c3p0.idle_test_period">120</prop>
+				<prop key="hibernate.c3p0.acquire_increment">2</prop>
+
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.xt.oms.employee.model.Employee</value>
+				<value>com.xt.oms.employee.model.EmployeeJob</value>
+				<value>com.xt.oms.employee.model.EmployeeOrgView</value>
+				<value>com.xt.oms.employee.model.EmpOrgRelation</value>
+				<value>com.xt.oms.hospitaltype.model.OmsOrgHospitalType</value>
+				<value>com.xt.oms.job.model.JobQuota</value>
+				<value>com.xt.oms.job.model.JobRole</value>
+				<value>com.xt.oms.kpi.model.EmployeeGoalView</value>
+				<value>com.xt.oms.kpi.model.GoalView</value>
+				<value>com.xt.oms.kpi.model.KpiGoal</value>
+				<value>com.xt.oms.kpi.model.KpiGoalSpecificationsView</value>
+				<value>com.xt.oms.kpi.model.KpiGoalView</value>
+				<value>com.xt.oms.kpi.model.KpiGrade</value>
+				<value>com.xt.oms.kpi.model.KpiResult</value>
+				<value>com.xt.oms.org.model.Org</value>
+				<value>com.xt.privilege.empower.model.Empower</value>
+				<value>com.xt.privilege.group.model.EmployeeGroupV</value>
+				<value>com.xt.privilege.group.model.Group</value>
+				<value>com.xt.privilege.group.model.GroupEmployee</value>
+				<value>com.xt.privilege.group.model.GroupSql</value>
+				<value>com.xt.privilege.resource.model.Function</value>
+				<value>com.xt.privilege.resource.model.Operation</value>
+				<value>com.xt.rule.model.Rule</value>
+				<value>com.xt.rule.model.RuleVar</value>
+				<value>com.xt.ssb.dict.model.Dict</value>
+				<value>com.xt.ssb.dict.model.DictType</value>
+				<value>com.xt.ssb.menu.model.Menu</value>
+				<value>com.xt.ssb.fileupload.model.File</value>
+				
+				<!-- 医小宝 -->
+				<value>com.jx.exiaobao.goods.model.Goods</value>
+				<value>com.jx.exiaobao.user.model.Empofhospital</value>
+				<value>com.jx.exiaobao.happly.model.OrgEmployeeView</value>
+				<value>com.jx.exiaobao.happly.model.OrgHapplyView</value>
+				<value>com.jx.exiaobao.happly.model.Happly</value>
+				<value>com.jx.exiaobao.goods.model.Campaign</value>
+				<value>com.jx.exiaobao.user.model.Invite</value>
+				<value>com.jx.exiaobao.user.model.UserLevel</value>
+				<value>com.jx.exiaobao.bespeak.model.Bespeak</value>
+				<value>com.jx.exiaobao.device.model.Device</value>
+				<value>com.jx.exiaobao.goods.model.Share</value>
+				<value>com.jx.exiaobao.tickling.model.Tickling</value>
+				<value>com.jx.exiaobao.cash.model.Cash</value>
+				<value>com.jx.exiaobao.goal.model.Goal</value>
+				<value>com.jx.exiaobao.commision.model.Commision</value>
+				<value>com.jx.exiaobao.commision.model.Regular</value>
+				
+				
+				<!-- 微信 -->
+				<value>com.jx.wx.menu.model.WxMenu</value>
+				<value>com.jx.wx.account.model.AccountConfig</value>
+				<value>com.jx.wx.user.model.User</value>
+				
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="query*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="login*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="save*" propagation="REQUIRED"
+				rollback-for="Throwable" />
+			<tx:method name="new*" propagation="REQUIRED" rollback-for="Throwable" />
+			<tx:method name="insert*" propagation="REQUIRED"
+				rollback-for="Throwable" />
+			<tx:method name="update*" propagation="REQUIRED"
+				rollback-for="Throwable" />
+			<tx:method name="delete*" propagation="REQUIRED"
+				rollback-for="Throwable" />
+			<tx:method name="remove*" propagation="REQUIRED"
+				rollback-for="Throwable" />
+			<tx:method name="excute*" propagation="SUPPORTS"
+				rollback-for="Throwable" />
+
+			<tx:method name="register*" propagation="REQUIRED" />
+			<tx:method name="updateShare*" propagation="REQUIRED" />
+			
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<tx:annotation-driven />
+
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice"
+			pointcut="(execution(* com.xt..bussiness..*.*(..)) or execution(* com.jx..bussiness..*.*(..)))" />
+	</aop:config>
+
+	<aop:aspectj-autoproxy proxy-target-class="false" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes 10M -->
+		<property name="maxUploadSize" value="10485760" />
+	</bean>
+
+	<!-- <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close"> 
+		<property name="driverClass" value="com.mysql.jdbc.Driver" /> <property name="jdbcUrl" 
+		value="jdbc:mysql://localhost:13306/stfoa" /> <property name="username" value="root" 
+		/> <property name="password" value="3.1415926" /> <property name="idleConnectionTestPeriod" 
+		value="60" /> <property name="idleMaxAge" value="240" /> <property name="maxConnectionsPerPartition" 
+		value="30" /> <property name="minConnectionsPerPartition" value="10" /> <property 
+		name="partitionCount" value="3" /> <property name="acquireIncrement" value="5" 
+		/> <property name="poolAvailabilityThreshold" value="10"></property> <property 
+		name="connectionTimeout" value="3000"></property> <property name="logStatementsEnabled" 
+		value="true"></property> </bean> -->
+
+
+	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close"> <property name="driverClassName" value="com.mysql.jdbc.Driver" 
+		/> <property name="url" value="jdbc:mysql://localhost:13306/stfoa" /> <property 
+		name="username" value="root" /> <property name="password" value="3.1415926" 
+		/> <property name="maxWait" value="60000"></property> <property name="initialSize" 
+		value="10"></property> <property name="maxActive" value="50"></property> 
+		<property name="maxIdle" value="20"></property> <property name="minIdle" 
+		value="3"></property> <property name="removeAbandoned"> <value>true</value> 
+		</property> <property name="removeAbandonedTimeout"> <value>30000</value> 
+		</property> </bean> -->
+</beans>

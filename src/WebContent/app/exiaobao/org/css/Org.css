@@ -1,0 +1,189 @@
+@charset "utf-8";
+ul,li{margin: 0;padding: 0;font: 12px normal "Microsoft YaHei" ;list-style: none;}
+a{text-decoration: none;color: #000;font-size: 14px;}
+#tabbox{ 
+	width:600px; 
+	overflow:hidden; 
+	margin:0 auto;
+	}
+.tab_conbox{
+	border: 0px solid #999;
+	border-top: none;
+	}
+.tab_con{ 
+	display:none;
+	background: #FFFDFE;
+	}
+.sortTb{
+	width: 100%;border: 0;
+}
+.sortTb tr{
+	padding-top: 0px;color: #999999;text-align: center;height: 30px;
+}
+.orgSmallimg{
+	width:84px;height: 80px; 
+	border:0px;
+}
+.tabs{
+	height: 35px;
+	border-bottom:0px solid #999;
+	border-left: 0px solid #999;
+	width: 100%;
+	background: #FFFDFE;
+	font-size: 16px;
+	}
+	
+.tabsli{
+	height:35px;
+	line-height:35px;
+	float:left;
+	border:0px solid #999;
+	border-left:none;
+	margin-bottom: -1px;
+	background: #FFFDFE;
+	overflow: hidden;
+	position: relative;
+	text-align:center;
+	
+	}
+.tabsli a {
+	display: block;
+	padding: 0 20px;
+	border: 0px solid #fff;
+	outline: none;
+	padding-top: 2px;
+	}
+.thistab{
+	color:#46B8E9;
+	border-bottom: 2px solid #46B8E9;
+	}
+.thistab a{
+	color:#46B8E9;
+}
+
+.tab_con {padding:10px;padding-top:5px;font-size: 14px; line-height:175%;}
+
+.swiper-container {
+        width: 100%;
+        /*height: 300px;*/
+        margin: 0 auto;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.swiper-slide img{
+	width:100%;
+	border: 0px;
+	height: 100%;
+}
+
+.fdiv{
+	top:166px;
+	width: 100%;
+	height: 36px;
+	position: absolute;
+	background-color: #FFF;
+	background: rgba(145, 189, 216,0.3);
+ 	z-index: 999;
+ 	font-family:"Microsoft YaHei" ! important;ddiv
+ 	vertical-align:middle;
+    font-weight:bolder;
+    color: #838281;
+}
+
+.ddiv{
+	width: 100%;
+	border-bottom: 0px solid #ddd;
+	background-color:#FFFFFF;
+	font-family:"Microsoft YaHei" ! important;
+}
+.butndiv{
+	text-align: center;
+	margin-left:35%;
+	padding-bottom:10px;
+	padding-top:10px;
+	z-index:1000;
+}
+.backDiv{
+	width: 100%;height: 6px;border-top: 1px solid #ddd;border-bottom:1px solid #ddd;background-color: #F3F3F4; 
+}
+.keyword{
+	width: 90%;height: 22px;border: 0 solid #F0EEF0;border-radius: 8px 8px 8px 8px;
+	font-size: 12px;padding-left: 10px;color: #BEBEBE;
+}
+
+.showListli{
+	border-top: 1px solid #ededed;padding-top: 10px;padding-bottom: 10px;padding-left: 10px;
+}
+.showListli table{
+	width: 100%;border: 0;
+}
+.tableimg{
+	width:105px;height: 72px;border: 0 ;
+}
+.tableli1{
+	padding-bottom: 5px;font-weight: 600;font-size: 15px;color: #666666;
+}
+.tableli2{
+	padding-bottom: 5px;color: #bbbbbb;
+}
+.tableli3{
+	padding-top: 5px;
+}
+.jiage{
+	font-size: 15px;color:#F94649;
+}
+.yuanjia{
+	margin-left: 5px;text-decoration:line-through;color: #bbbbbb;
+}
+.yongjin{
+	color: #bbbbbb;margin-left: 20px;
+}
+.searchBtn{
+	position: relative;
+	z-index:1100;
+	left:87%;
+	bottom:23px;
+	width: 24px;
+	height: 22px;
+	background-image: url('../images/sousuo.png');
+	background-size:24px 21px;
+}
+.searchDiv{
+	width: 100%;height: 26px;border: 0;padding: 0;margin: 0;
+	text-align: center;background-color: #F3F3F4; 
+}
+.tab2imgdiv{
+	width: 100%;height: 80px;padding: 0;margin: 0;
+}
+.tab2imgdiv img{
+	width:100%;height: 100px;
+	border: 0px;
+}
+.tab2textdiv{
+	width: 100%;padding-left: 2px;margin: 0; border: 0px solid #ddd;
+}
+.jiazaiged{
+	width: 100%;border-top: 1px solid #ededed;font-size: 16px;text-align: center;margin-bottom: 20px;
+	padding-top: 7px;
+}
+.jiazaiged2{
+	width: 100%;border-top: 1px solid #ededed;font-size: 16px;text-align: center;margin-bottom: 20px;
+	padding-top: 7px;
+}

@@ -1,0 +1,138 @@
+html,body {
+	margin: 0px 0px;
+}
+
+.login_header {
+	width: 100%;
+	height: 80px;
+	background: url('images/login_header.png') repeat;
+	text-align: center;
+}
+
+.welcome_login {
+	float: left;
+	margin-left: 50px;
+	margin-top: 20px;
+}
+
+.login_body {
+	width: 100%;
+	height: 525px;
+	background: url('images/login_body.png') repeat;
+	text-align: center;
+}
+
+.earth {
+	float: left;
+	margin-left: 100px;
+	margin-top: 80px;
+}
+
+.login_form {
+	margin-top: 80px;
+	float: right;
+	width: 299px;
+	height: 347px;
+	background: url('images/login_form.png') repeat;
+}
+
+.login_check {
+	width: 150px;
+	height: 20px;
+	display: inline-block;
+	padding-left: 30px;
+	font-size: 14px;
+	color: #FFF;
+	margin-left: 26px;
+	background: url('images/login_check.png') no-repeat;
+	cursor: pointer;
+}
+
+.login_check_checked {
+	width: 150px;
+	height: 20px;
+	display: inline-block;
+	padding-left: 30px;
+	font-size: 14px;
+	color: #FFF;
+	margin-left: 26px;
+	background: url('images/login_check_checked.png') no-repeat;
+	cursor: pointer;
+}
+
+.login_check:hover {
+	color: #eee;
+	font-weight: bold;
+}
+
+.login_forget_password {
+	height: 20px;
+	display: inline-block;
+	font-size: 14px;
+	color: #FFF;
+	float: right;
+	margin-right: 30px;
+	cursor: pointer;
+}
+
+.login_forget_password:hover {
+	color: #eee;
+	font-weight: bold;
+}
+
+.login_btn {
+	width: 244px;
+	height: 44px;
+	border-width: 0px;
+	display: inline-block;
+	font-size: 14px;
+	color: #FFF;
+	float: right;
+	margin-right: 30px;
+	background: url('images/login_btn.png') no-repeat;
+	cursor: pointer;
+}
+
+.login_btn:hover {
+	background: url('images/login_btn_hover.png') no-repeat;
+}
+
+.login_register {
+	width: 130px;
+	height: 13px;
+	border-width: 0px;
+	display: inline-block;
+	background: url('images/register.png') no-repeat;
+	cursor: pointer;
+}
+
+.center_div {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1024px;
+	height: 100%;
+}
+
+.login_footer {
+	margin-top: 20px;
+}
+
+.footer_link {
+	color: #9e9e9e;
+	cursor: pointer;
+	font-size: 12px;
+	border-right: 1px solid #ccc;
+	padding: 5px 5px;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+input {
+	outline: none;
+}
+
+textarea {
+	outline: none;
+}

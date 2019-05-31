@@ -1,0 +1,57 @@
+
+
+/*!
+ * 自定义
+ * Copyright 2011-2015 Twitter, Inc.
+ * zhangxingbo
+ */
+ body {
+	line-height: 1.6;
+	font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","黑体",Arial,sans-serif;
+	color: #222;
+	font-size: 14px;
+}
+ 
+ 
+ 
+
+
+.shadow {
+    -webkit-box-shadow: #666 2px 1px 3px;
+    -moz-box-shadow: #666 2px 1px 3px;
+    box-shadow: #666 2px 1px 3px;
+}
+
+
+.btn_primary {
+	background-color: #44B549;
+	background-image: linear-gradient(to bottom, #44B549 0px, #44B549 100%);
+	border-color: #44B549;
+	color: #FFF;
+}
+.btn {
+	min-width: 60px;
+}
+.btn {
+	display: inline-block;
+	overflow: visible;
+	padding: 0px 22px;
+	height: 30px;
+	line-height: 30px;
+	vertical-align: middle;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 3px;
+	font-size: 14px;
+	border-width: 1px;
+	border-style: solid;
+	cursor: pointer;
+}
+
+a {
+	color: #459AE9;
+	text-decoration: none;
+}
+input, textarea, button, a {
+	outline: 0px none;
+}
